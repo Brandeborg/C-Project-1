@@ -2,7 +2,7 @@
 #define LINKED_LIST_H_
 
 // Data structure for the linked list
-typedef struct  linked_list{
+typedef struct linked_list{
 	void *data;
 	struct linked_list *next;
 	struct linked_list *previous;

@@ -21,19 +21,6 @@ int main(int argc, char *argv[]) {
 	linked_list *list = init_linked_list();
 
 
-	add_element(list, 1);
-	add_element(list, 2);
-	add_element(list, 3);
-	add_element(list, 4);
-
-	void* removed = remove_first(list);
-
-	int code = remove_element(list, 3);
-
-	printf("%i\n", code);
-	printf("%i\n", list->next->data);
-	printf("%i\n", list->next->next->data);
-
 
 
 	// Error checking
