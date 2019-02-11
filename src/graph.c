@@ -17,42 +17,60 @@ graph *read_graph(char *filename)
 	}
 
 	graph *graph = malloc(sizeof(graph));
+	vertex *vert;
+	graph->vertices = vert;
+
 	size_t count = -1;
 
 	while ((charactersRead = getline(&line, &size, file) != -1))
 	{
 		if (count == -1)
 		{
-			graph->number_vertices = atoi(line);
+			int numVert = atoi(line);
+			graph->number_vertices = numVert;
+			vert = malloc(numVert * sizeof(vertex));
 		}
 		else
 		{
-			vertex *vertex = malloc(sizeof(vertex));
-			vertex->id = count;
-			vertex->out_neighbours = init_linked_list();
-			
-			for (int i = 0; i<strlen(line); i++)
-			{
-				printf("%c \n", line[i]);
+			(&vert[count])->id = count;
+			(&vert[count])->out_neighbours = init_linked_list();
 
-				if (line[i] == 1)
+			for (int i = 0; i < strlen(line); i++)
+			{
+				if (line[i] == '1')
 				{
-					add_element(vertex->out_neighbours, i);
-					graph->vertices = vertex;
+					add_element((&vert[count])->out_neighbours, i);
 				}
-				
 			}
-			printf("%i\n", vertex->out_neighbours->next);
 		}
 		count++;
-
-		//printf("%i\n", charactersRead);
-		//printf("%s\n", line);
 	};
 
-	return NULL;
+	return graph;
 }
 
 void print_graph(graph *g)
 {
+	vertex *vert = g->vertices;
+	int count = 0;
+
+	for (int i = 0; i < g->number_vertices; i++)
+	{
+		count = 0;
+		while ((&vert[i])->out_neighbours->next != NULL)
+		{
+			if (count == 0)
+			{
+				printf("node '%d' ", (&vert[i])->id);
+				printf("peger på %d", (&vert[i])->out_neighbours->next->data);
+			}
+			else
+			{
+				printf(",%d", (&vert[i])->out_neighbours->next->data);
+			}
+			(&vert[i])->out_neighbours = (&vert[i])->out_neighbours->next;
+			count++;
+		}
+		printf("\n");
+	}
 }
