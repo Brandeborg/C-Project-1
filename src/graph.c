@@ -7,8 +7,8 @@ graph *read_graph(char *filename)
 
 	FILE *file = fopen(filename, "r");
 	char *line = NULL;
-	int size = 0;
-	int charactersRead = 0;
+	size_t size = 0;
+	size_t charactersRead = 0;
 
 	if (file == NULL)
 	{
@@ -16,32 +16,38 @@ graph *read_graph(char *filename)
 		exit(EXIT_FAILURE);
 	}
 
-	int count = -1;
+	graph *graph = malloc(sizeof(graph));
+	size_t count = -1;
+
 	while ((charactersRead = getline(&line, &size, file) != -1))
 	{
 		if (count == -1)
 		{
-			graph *graph = malloc(sizeof(graph));
-			graph->number_vertices = (int) line;
+			graph->number_vertices = atoi(line);
 		}
 		else
 		{
 			vertex *vertex = malloc(sizeof(vertex));
 			vertex->id = count;
 			vertex->out_neighbours = init_linked_list();
-
-			for (int i = 0; strlen(line); i++)
+			
+			for (int i = 0; i<strlen(line); i++)
 			{
+				printf("%c \n", line[i]);
+
 				if (line[i] == 1)
 				{
 					add_element(vertex->out_neighbours, i);
+					graph->vertices = vertex;
 				}
+				
 			}
+			printf("%i\n", vertex->out_neighbours->next);
 		}
 		count++;
 
-		printf("%i\n", charactersRead);
-		printf("%s\n", line);
+		//printf("%i\n", charactersRead);
+		//printf("%s\n", line);
 	};
 
 	return NULL;
