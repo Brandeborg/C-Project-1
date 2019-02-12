@@ -44,7 +44,7 @@ int linked_list_size(linked_list *list) {
 void *remove_first(linked_list *list) {
 	void* element = list->next->data;
 
-	free(list->next);	//may be wrong					
+	//free(list->next);				
 	list->next = list->next->next;
 
 	return element;
@@ -53,7 +53,7 @@ void *remove_first(linked_list *list) {
 int remove_element(linked_list *list, void *element) {
 	while (list->next != NULL){
 		if (list->next->data == element){
-			free(list->next);		//may be wrong				
+			//free(list->next);				
 			list->next = list->next->next;
 			return 0;
 		}

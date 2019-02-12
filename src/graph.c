@@ -21,7 +21,6 @@ graph *read_graph(char *filename)
 	graph->vertices = vert;
 
 	size_t count = -1;
-
 	while ((charactersRead = getline(&line, &size, file) != -1))
 	{
 		if (count == -1)
@@ -50,17 +49,16 @@ graph *read_graph(char *filename)
 	//adding vertices to in_neighbors
 	for (int i = 0; i < graph->number_vertices; i++)
 	{
-		for (int j = 0; j < graph->number_vertices; j++)
-		{		
-			while ((&vert[j])->out_neighbours->next != NULL)
+		linked_list *restore = (&vert[i])->out_neighbours;
+		while ((&vert[i])->out_neighbours->next != NULL)
+		{
+			int j = (&vert[i])->out_neighbours->next->data;
 			{
-				if ((&vert[j])->out_neighbours->next->data == i)
-				{
-					add_element((&vert[i])->in_neighbours, j);
-				}
-				(&vert[j])->out_neighbours = (&vert[j])->out_neighbours->next;
+				add_element((&vert[j])->in_neighbours, i);
 			}
+			(&vert[i])->out_neighbours = (&vert[i])->out_neighbours->next;
 		}
+		(&vert[i])->out_neighbours = restore;
 	}
 
 	return graph;
@@ -73,6 +71,7 @@ void print_graph(graph *g)
 
 	printf("Number of vertices: %d\n\n", g->number_vertices);
 
+	printf("Out_neighbors: \n");
 	for (int i = 0; i < g->number_vertices; i++)
 	{
 		count = 0;
@@ -90,9 +89,13 @@ void print_graph(graph *g)
 			(&vert[i])->out_neighbours = (&vert[i])->out_neighbours->next;
 			count++;
 		}
-		printf("\n");
+		if ((&vert[i])->out_neighbours->previous != NULL)
+		{
+			printf("\n");
+		}
 	}
 
+	printf("\nIn_neighbors: \n");
 	for (int i = 0; i < g->number_vertices; i++)
 	{
 		count = 0;
@@ -110,6 +113,9 @@ void print_graph(graph *g)
 			(&vert[i])->in_neighbours = (&vert[i])->in_neighbours->next;
 			count++;
 		}
-		printf("\n");
+		if ((&vert[i])->in_neighbours->previous != NULL)
+		{
+			printf("\n");
+		}
 	}
 }
