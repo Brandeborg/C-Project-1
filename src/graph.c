@@ -4,7 +4,6 @@
 
 graph *read_graph(char *filename)
 {
-
 	FILE *file = fopen(filename, "r");
 	char *line = NULL;
 	size_t size = 0;
@@ -18,8 +17,7 @@ graph *read_graph(char *filename)
 
 	graph *graph = malloc(sizeof(graph));
 	vertex *vert;
-	graph->vertices = vert;
-
+	
 	size_t count = -1;
 	while ((charactersRead = getline(&line, &size, file) != -1))
 	{
@@ -61,6 +59,7 @@ graph *read_graph(char *filename)
 		(&vert[i])->out_neighbours = restore;
 	}
 
+	graph->vertices = vert;
 	return graph;
 }
 
