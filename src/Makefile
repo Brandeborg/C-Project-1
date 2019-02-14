@@ -15,10 +15,10 @@ OBJ = $(patsubst %,$(ODIR)/%,$(_OBJ))
 
 
 $(ODIR)/%.o: %.c $(DEPS)
-	$(CC) -c -o $@ $< $(CFLAGS)
+	$(CC) -g -c -o $@ $< $(CFLAGS)
 
 program: $(OBJ)
-	gcc -o $@ $^ $(CFLAGS) $(LIBS)
+	gcc -g -o $@ $^ $(CFLAGS) $(LIBS)
 
 .PHONY: clean
 

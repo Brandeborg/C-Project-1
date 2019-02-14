@@ -1,9 +1,11 @@
 #include <stdlib.h>
 #include <stdio.h>
+#include <string.h>
 #include "graph.h"
 
 graph *read_graph(char *filename)
 {
+
 	FILE *file = fopen(filename, "r");
 	char *line = NULL;
 	size_t size = 0;
@@ -15,7 +17,9 @@ graph *read_graph(char *filename)
 		exit(EXIT_FAILURE);
 	}
 
-	graph *graph = malloc(sizeof(graph));
+	//allocating memory for the graph. 
+	//+8 for esktra stuff, that gave me an error otherwise 
+	graph *graph = malloc(sizeof(graph)+8);
 	vertex *vert;
 
 	size_t count = -1;
@@ -23,6 +27,7 @@ graph *read_graph(char *filename)
 	{
 		if (count == -1)
 		{
+			//allocating memory for all vertices in the graph
 			int numVert = atoi(line);
 			graph->number_vertices = numVert;
 			vert = malloc(numVert * sizeof(vertex));
@@ -33,29 +38,37 @@ graph *read_graph(char *filename)
 			(&vert[count])->out_neighbours = init_linked_list();
 			(&vert[count])->in_neighbours = init_linked_list();
 
-			for (int i = 0; i < strlen(line); i++)
+			for (size_t i = 0; i < strlen(line); i++)
 			{
+				//adding the number of the pointees
+				//to to out_neighbours of the pointer
 				if (line[i] == '1')
 				{
-					add_element((&vert[count])->out_neighbours, i);
+					add_element((&vert[count])->out_neighbours, (void*) i);
 				}
 			}
 		}
 		count++;
 	}
 
-	//adding vertices to in_neighbors
-	for (int i = 0; i < graph->number_vertices; i++)
+	//adding vertices to in_neighbours
+	for (size_t i = 0; i < graph->number_vertices; i++)
 	{
 		linked_list *restore = (&vert[i])->out_neighbours;
+
+		//if the current vertex has an out_neighbour,
+		//add current vertex to out_neighbours's in_neighbours
 		while ((&vert[i])->out_neighbours->next != NULL)
 		{
-			int j = (&vert[i])->out_neighbours->next->data;
+			size_t j = (size_t) (&vert[i])->out_neighbours->next->data;
 			{
-				add_element((&vert[j])->in_neighbours, i);
+				add_element((&vert[j])->in_neighbours, (void*) i);
 			}
 			(&vert[i])->out_neighbours = (&vert[i])->out_neighbours->next;
 		}
+		//restoring the beginning of out_neighbours,
+		//since the above process pushed the pointer 
+		//to the end
 		(&vert[i])->out_neighbours = restore;
 	}
 
@@ -65,6 +78,7 @@ graph *read_graph(char *filename)
 
 void print_graph(graph *g)
 {
+	/*
 	vertex *vert = g->vertices;
 	int count = 0;
 
@@ -117,4 +131,5 @@ void print_graph(graph *g)
 			printf("\n");
 		}
 	}
+	*/
 }

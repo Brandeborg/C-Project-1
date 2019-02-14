@@ -31,7 +31,7 @@ void add_element(linked_list *list, void *element)
 	}
 
 	//allocating memory for data
-	newNode->data = (void *)malloc(sizeof(int));
+	newNode->data = (void *)malloc(sizeof(size_t));
 
 	//assigning values to all fields once the end is found
 	newNode->data = element;
@@ -61,7 +61,7 @@ void *remove_first(linked_list *list)
 	//making that the new first element
 	void *element = list->next->data;
 	list->next = list->next->next;
-
+	
 	return element;
 }
 
