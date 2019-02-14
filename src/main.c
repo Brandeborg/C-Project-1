@@ -7,7 +7,8 @@
 /*
  * Prints the usage to the console.
  */
-void show_usage() {
+void show_usage()
+{
 	printf("===================================\n");
 	printf("=======     Usage      ============\n");
 	printf("===================================\n");
@@ -16,15 +17,14 @@ void show_usage() {
 }
 
 // First command line parameter - input file
-int main(int argc, char *argv[]) {
+int main(int argc, char *argv[])
+{
 
 	linked_list *list = init_linked_list();
 
-
-
-
 	// Error checking
-	if( argc != 2) {
+	if (argc != 2)
+	{
 		show_usage();
 		return 0;
 	}
@@ -32,8 +32,8 @@ int main(int argc, char *argv[]) {
 	// Build a graph from the input
 	graph *g = read_graph(argv[1]);
 
-	//print_graph(read_graph(argv[1]));
+	//print_graph(g);
 
 	// Run cycle detection algorithm and output result
-	cycle_detection(read_graph(argv[1]));
+	cycle_detection(g);
 }

@@ -17,7 +17,7 @@ graph *read_graph(char *filename)
 
 	graph *graph = malloc(sizeof(graph));
 	vertex *vert;
-	
+
 	size_t count = -1;
 	while ((charactersRead = getline(&line, &size, file) != -1))
 	{
