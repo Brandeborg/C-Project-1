@@ -17,12 +17,13 @@ graph *read_graph(char *filename)
 		exit(EXIT_FAILURE);
 	}
 
-	//allocating memory for the graph. 
-	//+8 for esktra stuff, that gave me an error otherwise 
-	graph *graph = malloc(sizeof(graph)+8);
+	//allocating memory for the graph.
+	//+8 for esktra stuff, that gave me an error otherwise
+	graph *graph = malloc(sizeof(graph) + 8);
 	vertex *vert;
 
 	size_t count = -1;
+	//save in line in char pinter as long as there are lines
 	while ((charactersRead = getline(&line, &size, file) != -1))
 	{
 		if (count == -1)
@@ -38,18 +39,21 @@ graph *read_graph(char *filename)
 			(&vert[count])->out_neighbours = init_linked_list();
 			(&vert[count])->in_neighbours = init_linked_list();
 
+			//reading every character in the line
 			for (size_t i = 0; i < strlen(line); i++)
 			{
-				//adding the number of the pointees
-				//to to out_neighbours of the pointer
+				//adding the number of the pointees (current char)
+				//to the out_neighbours of the pointer
 				if (line[i] == '1')
 				{
-					add_element((&vert[count])->out_neighbours, (void*) i);
+					add_element((&vert[count])->out_neighbours, (void *)i);
 				}
 			}
 		}
 		count++;
 	}
+
+	
 
 	//adding vertices to in_neighbours
 	for (size_t i = 0; i < graph->number_vertices; i++)
@@ -60,14 +64,14 @@ graph *read_graph(char *filename)
 		//add current vertex to out_neighbours's in_neighbours
 		while ((&vert[i])->out_neighbours->next != NULL)
 		{
-			size_t j = (size_t) (&vert[i])->out_neighbours->next->data;
+			size_t j = (size_t)(&vert[i])->out_neighbours->next->data;
 			{
-				add_element((&vert[j])->in_neighbours, (void*) i);
+				add_element((&vert[j])->in_neighbours, (void *)i);
 			}
 			(&vert[i])->out_neighbours = (&vert[i])->out_neighbours->next;
 		}
 		//restoring the beginning of out_neighbours,
-		//since the above process pushed the pointer 
+		//since the above process pushed the pointer
 		//to the end
 		(&vert[i])->out_neighbours = restore;
 	}
@@ -78,7 +82,7 @@ graph *read_graph(char *filename)
 
 void print_graph(graph *g)
 {
-	/*
+
 	vertex *vert = g->vertices;
 	int count = 0;
 
@@ -92,12 +96,12 @@ void print_graph(graph *g)
 		{
 			if (count == 0)
 			{
-				printf("Node '%d' ", (&vert[i])->id);
-				printf("peger på node %d", (&vert[i])->out_neighbours->next->data);
+				printf("Node '%i' ", (&vert[i])->id);
+				printf("peger på node %li", (size_t)(&vert[i])->out_neighbours->next->data);
 			}
 			else
 			{
-				printf(",%d", (&vert[i])->out_neighbours->next->data);
+				printf(",%li", (size_t)(&vert[i])->out_neighbours->next->data);
 			}
 			(&vert[i])->out_neighbours = (&vert[i])->out_neighbours->next;
 			count++;
@@ -116,12 +120,12 @@ void print_graph(graph *g)
 		{
 			if (count == 0)
 			{
-				printf("Node '%d' ", (&vert[i])->id);
-				printf("peges på af node %d", (&vert[i])->in_neighbours->next->data);
+				printf("Node '%i' ", (&vert[i])->id);
+				printf("peges på af node %li", (size_t)(&vert[i])->in_neighbours->next->data);
 			}
 			else
 			{
-				printf(",%d", (&vert[i])->in_neighbours->next->data);
+				printf(",%li", (size_t)(&vert[i])->in_neighbours->next->data);
 			}
 			(&vert[i])->in_neighbours = (&vert[i])->in_neighbours->next;
 			count++;
@@ -131,5 +135,4 @@ void print_graph(graph *g)
 			printf("\n");
 		}
 	}
-	*/
 }

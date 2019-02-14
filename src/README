@@ -1,17 +1,11 @@
 linked_list:
-    In remove_first, the 'previous' pointer should be updated as well
-    but I could not get it to work.
-    It's not that important in this case, since previous is never used in
-    the cycledetection but it is definitely not ideal, that some of the code 
-    is not working.
-
     I chose not to store any data in the first ('root') node, which
-    I don't really have a reason for, that was just my first intuition,
+    I don't really have a reason for, it was just my first intuition,
     when I started. It would probably be better to use it, since 
     the program is 'wasting' space for a node, however, not that much.
 
 Generel:
-    I am not freeing the allocated memory after I am done using it,
-    which is not good.
+    I am not freeing all the allocated memory after I am done using it,
+    only some of it, which is not good.
 
     

@@ -30,9 +30,6 @@ void add_element(linked_list *list, void *element)
 		list = list->next;
 	}
 
-	//allocating memory for data
-	newNode->data = (void *)malloc(sizeof(size_t));
-
 	//assigning values to all fields once the end is found
 	newNode->data = element;
 	newNode->next = NULL;
@@ -59,9 +56,17 @@ void *remove_first(linked_list *list)
 	//saving the first element
 	//and making the 'root' point to the second element, 
 	//making that the new first element
-	void *element = list->next->data;
+	void* ptr = list->next;
+	void* element = list->next->data;
 	list->next = list->next->next;
 	
+	//changing the new first element's previous,
+	//to point back at 'root', if the new first is not NULL
+	if(list->next != NULL){
+		list->next->previous = list;
+	}
+
+	free(ptr);
 	return element;
 }
 
@@ -73,8 +78,8 @@ int remove_element(linked_list *list, void *element)
 		//comparing the data of each listnode with the element
 		if (list->next->data == element)
 		{
-			//removing element if found as in remove_first
-			list->next = list->next->next;
+			//removing element if found
+			remove_first(list);
 			return 0;
 		}
 		else
