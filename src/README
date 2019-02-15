@@ -3,9 +3,28 @@ linked_list:
     I don't really have a reason for, it was just my first intuition,
     when I started. It would probably be better to use it, since 
     the program is 'wasting' space for a node, however, not that much.
+    
+read_graph:
+    Graph is initially being created without in_neighbours, and the in_neighbours are added 
+    afterwards. It may have been faster to add in and out at the same time,
+    but it wasn't as easy.   
+
+    getline() is supposed to return the number of characters read in a line,
+    reutrn -1 if it reads nothing, however, whenever it reads a line it always returns 1. 
+    It has no effect on the program, since it still returns -1 at the end of a file and
+    the number of characters in a line can be reached by other menas but it is strange. 
 
 Generel:
-    I am not freeing all the allocated memory after I am done using it,
-    only some of it, which is not good.
+    The program is not freeing all the allocated memory after it is done using it,
+    only some of it, which is not good. Specifically, it frees the memory allocated
+    for a list node, when the node is removed. At least it is supposed to, and running the program 
+    with valgrind shows that less memory is allocated in the end, when trying to free it.
+    
+    The gradle test program results in my program passing all graphs on my own system, 
+    so the program seems to work, however, I am not entirely happy with the implementation. 
+    Instead of passing void pointers to add_element and other methods, numbers are being passed and casted,
+    which isn't very elegant.
+
+    Everything compiles with no warnings, which is good.
 
     

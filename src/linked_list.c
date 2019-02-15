@@ -10,8 +10,8 @@
 
 linked_list *init_linked_list()
 {
-	//creating a 'root' node with no data.
-	//the root's data field will always be NULL
+	/*creating a 'root' node with no data.
+	the root's data field will always be NULL*/
 	linked_list *root = (linked_list *)malloc(sizeof(linked_list));
 	root->data = NULL;
 	root->next = NULL;
@@ -41,8 +41,8 @@ int linked_list_size(linked_list *list)
 {
 	int count = 0;
 
-	//iterating through the list to get to the end 
-	//and counting up each step
+	/*iterating through the list to get to the end 
+	and counting up each step*/
 	while (list->next != NULL)
 	{
 		list = list->next;
@@ -53,16 +53,17 @@ int linked_list_size(linked_list *list)
 
 void *remove_first(linked_list *list)
 {
-	//saving the first element
-	//and making the 'root' point to the second element, 
-	//making that the new first element
-	void* ptr = list->next;
-	void* element = list->next->data;
+	/*saving the first element
+	and making the 'root' point to the second element, 
+	making that the new first element*/
+	void *ptr = list->next;
+	void *element = list->next->data;
 	list->next = list->next->next;
-	
-	//changing the new first element's previous,
-	//to point back at 'root', if the new first is not NULL
-	if(list->next != NULL){
+
+	/*changing the new first element's previous,
+	to point back at 'root', if the new first is not NULL*/
+	if (list->next != NULL)
+	{
 		list->next->previous = list;
 	}
 

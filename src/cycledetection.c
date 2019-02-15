@@ -24,17 +24,17 @@ void cycle_detection(graph *g)
     {
         //removing an element from S and adding it to L
         vertex *vertS = remove_first(S);
-        add_element(L, (void*) (size_t) vertS->id);
+        add_element(L, (void *)(size_t)vertS->id);
 
-        //if the removed element has an out_neighbour
-        //remove that edge from the graph
-        //both from the pointee's in_neighbours
-        //and the pointer's out_neighbours
+        /*if the removed element has an out_neighbour
+        remove that edge from the graph
+        both from the pointee's in_neighbours
+        and the pointer's out_neighbours*/
         while (vertS->out_neighbours->next != NULL)
         {
-            size_t id = (size_t) vertS->out_neighbours->next->data;
-            remove_element((&vertG[id])->in_neighbours, (void*) (size_t) vertS->id);
-            remove_element(vertS->out_neighbours, (void*) id);
+            size_t id = (size_t)vertS->out_neighbours->next->data;
+            remove_element((&vertG[id])->in_neighbours, (void *)(size_t)vertS->id);
+            remove_element(vertS->out_neighbours, (void *)id);
 
             //add the pointee to S, if it has no other in_neighbors
             if ((&vertG[id])->in_neighbours->next == NULL)
@@ -54,7 +54,7 @@ void cycle_detection(graph *g)
         }
         while (L->next != NULL)
         {
-            printf("%li", (size_t) remove_first(L));
+            printf("%li", (size_t)remove_first(L));
             if (L->next != NULL)
             {
                 printf(", ");
