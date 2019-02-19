@@ -7,7 +7,7 @@ linked_list:
 read_graph:
     Graph is initially being created without in_neighbours, and the in_neighbours are added 
     afterwards. It may have been faster to add in and out at the same time,
-    but it wasn't as easy.   
+    but it wasn't as simple.   
 
     getline() is supposed to return the number of characters read in a line,
     reutrn -1 if it reads nothing, however, whenever it reads a line it always returns 1. 
@@ -20,7 +20,7 @@ Generel:
     for a list node, when the node is removed. At least it is supposed to, and running the program 
     with valgrind shows that less memory is allocated in the end, when trying to free it.
     
-    The gradle test program results in my program passing all graphs on my own system, 
+    The gradle test program results in my program passing on all graphs on my own system, 
     so the program seems to work, however, I am not entirely happy with the implementation. 
     Instead of passing void pointers to add_element and other methods, numbers are being passed and casted,
     which isn't very elegant.
